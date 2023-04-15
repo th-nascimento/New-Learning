@@ -1,7 +1,6 @@
 # DICIONÁRIOS PARA TESTES
-x = {'nome' : 'thiago', 'cor' : 'azul', 'idade' : 30}
-x.copy()
-print(x)
+x = {'nome' : 'thiago'}
+print('Seja Bem Vindo ao Cadastrador de Dados')
 
 # LOOP CRIADOR DE CATEGORIA DE DADOS:
 def loop_insert_data():
@@ -9,28 +8,54 @@ def loop_insert_data():
     lista_categorica = []
 
     while True:
-        decision = input('Acrescentar Informação? "sim" ou "nao"\n')
+        decision = int(input('Acrescentar Informação?\n[1] SIM ----- [2] NÃO\n'))
 
-        if decision == 'nao':
+        if decision == 2:
             break
 
         lista_categorica.append(input('Qual categoria de informação deseja acrescentar?\n'))
 
     return lista_categorica
 
-# LISTA DE CATEGORIAS CRIADAS PELO LOOP
-insertCateg = loop_insert_data()
+# INTERFACE INICIAL DO PROGRAMA:
+def inicial_interface():
+    # SISTEMA DE CONTROLE DE ERROS: TRY e EXCEPT
+    try:
+        while True:
+            # OPÇÕES NA INTERFACE INICIAL
+            wantDo = int(input('O que deseja fazer?\n[1] ADD NOVAS CATEGORIAS DE DADOS ----- [2] MANIPULAR DADOS ----- [3] APAGAR DADOS ----- [4] FECHAR PROGRAMA'))
+            if wantDo == 1:
+                # LISTA DE CATEGORIAS CRIADAS PELO LOOP
+                listCategory = loop_insert_data()
 
-# ACRESCENTADOR DE CATEGORIAS EM DICIONÁRIOS
-getx = lambda : x.update(x.fromkeys(insertCateg, 'empty'))
-getx()
+                # ACRESCENTADOR DE CATEGORIAS EM DICIONÁRIOS
+                addCategory = lambda : x.update(x.fromkeys(listCategory, 'empty'))
 
-# PRINT DE DICIONÁRIO MODIFICADO APÓS A INCLUSÃO DE NOVA CATEGORIA
+                addCategory()
+            elif wantDo == 4:
+                print('-'*30 )
+                print('\nCadastrador finalizado. Até a próxima!')
+                break            
+        
+    except Exception as errorWantDo:
+        print('-'*30)
+        print(f'{errorWantDo}')
+        print('COLOQUE UM CÓDIGO VÁLIDO')
+        print('-'*30)
+        inicial_interface()
+    
+
+# EXECUÇÃO DAS FUNÇÕES E PRINTS
+x.copy()
 print(x)
+inicial_interface()
+print('-'*30 )
+print(f'\nEstas são as novas categorias de dados:\n{x}')
 
 
 
 # GERADOR DE CATEGORIAS TERMINADO
+# OPÇÕES DE INTERFACE TERMINADA
 # A IDEIA AGORA É:
 #       MANIPULAR OS DADOS DOS DICIONÁRIOS
 #       MODIFICAR AS CATEGORIAS JÁ CRIADAS
